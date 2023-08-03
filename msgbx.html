@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function confirmarExclusao() {
+            var confirmacao = confirm("Tem certeza que deseja excluir?");
+
+            if (confirmacao) {
+                // Aqui você pode redirecionar para outra página ou executar uma ação de exclusão no lado do servidor
+                window.location.href = "excluir.php";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="confirmarExclusao()">Excluir</button>
+</body>
+
+action="operacoes.php" method="POST"
+
+</html>
+
+
+
+
+
+
+<label for="cidades">Selecione uma cidade:</label>
+<select name="cidades" id="cidades">
+    <?php
+        // Conexão com o banco de dados
+        $conexao = mysqli_connect("localhost", "usuario", "senha", "nome_do_banco");
+
+        // Verifica se a conexão foi estabelecida com sucesso
+        if (mysqli_connect_errno()) {
+            echo "Falha na conexão com o MySQL: " . mysqli_connect_error();
+            exit();
+        }
+
+        // Consulta para obter os dados da tabela cidades
+        $consulta = "SELECT id, nome FROM cidades";
+        $resultado = mysqli_query($conexao, $consulta);
+
+        // Verifica se a consulta retornou algum resultado
+        if (mysqli_num_rows($resultado) > 0) {
+            // Loop para gerar as opções da caixa de combinação
+            while ($row = mysqli_fetch_assoc($resultado)) {
+                echo '<option value="' . $row['id'] . '">' . $row['nome'] . '</option>';
+            }
+        }
+
+        // Fechar a conexão com o banco de dados
+        mysqli_close($conexao);
+        ?>
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

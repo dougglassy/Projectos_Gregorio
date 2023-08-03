@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consulta de Vendas</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Consulta de Vendas</h1>
+    <button id="btn-consultar">Consultar Vendas</button>
+    
+    <table id="tabela-vendas">
+        <thead>
+            <tr>
+                <th style="text-align: center;">CODIGO</th>
+                <th style="text-align: center;">QUANTIDADE</th>
+                <th style="text-align: center;">LUCRO TOTAL</th>
+                <th style="text-align: center;">VENDA TOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Os valores serão preenchidos dinamicamente aqui -->
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            // Captura o clique do botão "Consultar Vendas"
+            $("#btn-consultar").on("click", function () {
+                // Envia uma requisição AJAX para o arquivo PHP que faz a consulta
+                $.ajax({
+                    url: "consultar_vendas.php",
+                    type: "POST",
+                    data: {
+                        // Inclua aqui os dados que deseja enviar para o PHP, por exemplo:
+                        // datainicial: "2023-01-01 00:00:00",
+                        // datafinal: "2023-12-31 23:59:59"
+                    },
+                    success: function (data) {
+                        // Remove as linhas existentes na tabela
+                        $("#tabela-vendas tbody").empty();
+                        // Adiciona as novas linhas com os dados retornados pelo PHP
+                        $("#tabela-vendas tbody").append(data);
+                    },
+                    error: function () {
+                        alert("Erro ao consultar vendas.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
